@@ -24,6 +24,8 @@ TEST_CASE("Multi char roman digits",
   REQUIRE(II.toInt() == 2);
   RomanNumeral VI("VI");
   REQUIRE(VI.toInt() == 6);
+  RomanNumeral XI("XI");
+  REQUIRE(XI.toInt() == 11);
 }
 
 TEST_CASE("When smaller values precede larger values, the smaller values are subtracted from the larger ones",
@@ -63,9 +65,38 @@ TEST_CASE("Ostream",
   REQUIRE(result.str() == expected.str());
 }
 
+TEST_CASE("Constructor for int",
+    "like RomanNumeral(5) prints V or RomanNumeral(14) == XIV") {
+  RomanNumeral V(5);
+  RomanNumeral IV(4);
+  ostringstream expected, result;
+  result << V << " " << IV;
+  expected << "V" << " " << "IV";
+  REQUIRE(result.str() == expected.str());
+
+  ostringstream expected_what, result_what;
+  RomanNumeral r1900(1900);
+  REQUIRE(r1900.toString() ==  "MCM");
+  RomanNumeral r1910(1910);
+  REQUIRE(r1910.toString() ==  "MCMX");
+  RomanNumeral r1999(1999);
+  REQUIRE(r1999.toString() ==  "MCMXCIX");
+  RomanNumeral r14(14);
+  REQUIRE(r14.toString() ==  "XIV");
+  RomanNumeral r19(19);
+  REQUIRE(r19.toString() ==  "XIX");
+  
+}
+
 TEST_CASE("Operator+: Add two RomanNumber",
     "X + I = XI") {
+  RomanNumeral mI("I");
+  mI += mI;
+  REQUIRE( mI.toInt() == 2); 
+
   RomanNumeral I("I");
-  I += I;
-  REQUIRE( I.toInt() == 2); 
+  RomanNumeral X("X");
+
+  REQUIRE( RomanNumeral(X + I).toString() == "XI");
+  REQUIRE( RomanNumeral(X + I).toInt() == 11);
 }
