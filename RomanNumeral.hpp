@@ -17,7 +17,7 @@ class RomanNumeral {
     void print(std::ostream&) const;
     inline std::string toString() const {return roman;}
     RomanNumeral& operator+=(const RomanNumeral&);
-    RomanNumeral operator+(const RomanNumeral&);
+    RomanNumeral operator+(const RomanNumeral&) const;
   private:
     int decimal;
     std::string roman;

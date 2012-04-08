@@ -101,7 +101,7 @@ RomanNumeral& RomanNumeral::operator+=(const RomanNumeral& rhs) {
   updateRoman();
   return *this;
 }
-RomanNumeral RomanNumeral::operator+(const RomanNumeral& rhs) {
+RomanNumeral RomanNumeral::operator+(const RomanNumeral& rhs) const{
   return RomanNumeral(*this) += rhs;
 }
 
